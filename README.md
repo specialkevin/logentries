@@ -1,22 +1,30 @@
 Role Name
 ========
 
-A brief description of the role goes here.
+This role will ensure that the logentries agent is present and configured on the host.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This requires version 1.6 of Ansible. There are no other external dependencies.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The following role variables can be found in defaults/main.yml. You will need to set these variables when you use the role.
+
+** logentries_account_key **
+
+This is the account key that is associated with your logentries account. You can get this key by going to /Account and then the profile tab.
+
+** logentries_watched_files **
+
+This is a list of log files to have logentries track.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The only dependencies for this role is an active account with logentries. You will need the associated account key for the account.
 
 Example Playbook
 -------------------------
@@ -25,7 +33,7 @@ Including an example of how to use your role (for instance, with variables passe
 
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: specialkevin.logentries, logentries_account_key: th1s-k3y5-15nt-ar3al-acc0unt, logentries_watched_files: ['/var/log/syslog', '/var/log/nginx/error.log'] }
 
 License
 -------
@@ -35,4 +43,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Kevin Harriss (special.kevin@gmail.com)
