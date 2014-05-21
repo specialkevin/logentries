@@ -1,2 +1,5 @@
 ---
 # defaults file for logentries
+
+logentries_account_key: th1s-k3y5-15nt-ar3al-acc0unt
+logentries_watched_files: ['/var/log/syslog']

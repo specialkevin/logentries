@@ -1,2 +1,30 @@
 ---
 # tasks file for logentries
+- name: Add Logentries Repo Present
+  apt_repository: repo='deb http://rep.logentries.com/ {{ansible_distribution_release }} main' state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Add Logentries Repo GPG Key
+  apt_key: id=C43C79AD keyserver=pgp.mit.edu state=present
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Ensure Logentries agent installed
+  apt: name=python-setprocfile update_cache=yes state=installed
+  when: ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int <= 12.10
+
+- name: Ensure logentries agent installed
+  apt: name=logentries update_cache=yes state=installed
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Register Logentries Agent
+  shell: "le register --user-key {{logentries_account_key}}"
+
+- name: Install Logentries Daemon
+  apt: name=logentries-daemon update_cache=yes state=installed
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Track specified files
+  logentries: path={{item}} state=present
+  with_items: logentries_watched_files
+  notify:
+    - reload logentries

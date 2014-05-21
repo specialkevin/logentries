@@ -1,2 +1,5 @@
 ---
 # handlers file for logentries
+
+- name: reload logentries
+  service: name=logentries state=reloaded
