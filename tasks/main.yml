@@ -9,7 +9,7 @@
   when: ansible_distribution == 'Ubuntu'
 
 - name: Ensure Logentries agent installed
-  apt: name=python-setprocfile update_cache=yes state=installed
+  apt: name=python-setproctitle update_cache=yes state=installed
   when: ansible_distribution == 'Ubuntu' and ansible_lsb.major_release|int <= 12.10
 
 - name: Ensure logentries agent installed
